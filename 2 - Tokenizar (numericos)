@@ -1,0 +1,24 @@
+import numpy as np
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import tensorflow as tf
+
+# Texto tokenizado
+tokens = sp.EncodeAsIds(texto_exemplo)
+
+# Criando sequências para treinamento
+sequence = []
+for i in range(1, len(tokens)):
+    sequence.append(tokens[:i+1])  # Criando sequências progressivas
+
+# Padronizando os tamanhos
+max_length = max(len(seq) for seq in sequence)
+sequences = pad_sequences(sequence, maxlen=max_length, padding="pre")
+
+# Separar entrada (X) e saída (y)
+X, y = sequences[:, :-1], sequences[:, -1]
+
+# Converter y para one-hot encoding
+y = tf.keras.utils.to_categorical(y, num_classes=50)  # Número de tokens no vocabulário
+
+print("Entrada (X):", X[0])
+print("Saída esperada (y):", y[0])
