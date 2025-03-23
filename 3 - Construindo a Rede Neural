@@ -1,0 +1,23 @@
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Embedding, LSTM, Dense
+
+# Criando o modelo LSTM
+modelo = Sequential([
+    Embedding(input_dim=50, output_dim=64),  # Mapeia tokens para vetores de 64 dimensões
+    LSTM(units=128, return_sequences=False),  # Processa a sequência
+    Dense(units=50, activation="softmax")  # Previsão do próximo token
+])
+
+modelo.compile(
+    loss="categorical_crossentropy",
+    optimizer="adam",
+    metrics=["accuracy"]
+)
+
+# Treinamento do modelo
+batch_size = min(32, len(X))  # Garante que o batch não seja maior que os dados
+modelo.fit(X, y, epochs=50, batch_size=batch_size)
+
+# Avaliação no conjunto de treino
+loss, accuracy = modelo.evaluate(X, y)
+print(f"Loss: {loss:.4f} | Accuracy: {accuracy:.4f}")
