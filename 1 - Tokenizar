@@ -1,0 +1,19 @@
+import sentencepiece as spm
+
+# Criando um arquivo de texto para treinar o tokenizador
+texto_exemplo = """Olá, Alesandro! Vamos aprender sobre tokenização com SentencePiece.
+Este método é utilizado por modelos avançados de IA, como BERT e GPT.
+Tokenização é um processo essencial para PLN. Podemos treinar modelos eficientes para lidar com textos em português.
+Machine learning é uma área fascinante e tem aplicações diversas, como chatbots, análise de sentimentos e muito mais.
+Com um bom tokenizador, podemos melhorar o desempenho de modelos de inteligência artificial."""
+
+# Salvar o texto no arquivo
+with open("dados.txt", "w") as f:
+    f.write(texto_exemplo)
+
+# Treinando um modelo de SentencePiece
+spm.SentencePieceTrainer.Train("--input=dados.txt --model_prefix=meu_modelo --vocab_size=50 --character_coverage=1.0")
+
+# Carregar o modelo treinado
+sp = spm.SentencePieceProcessor()
+sp.load("meu_modelo.model")
