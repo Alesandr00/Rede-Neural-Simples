@@ -1,0 +1,31 @@
+import numpy as np
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+def gerar_texto(modelo, token_inicial, sp, num_palavras=20):
+    sequencia = token_inicial.copy() #Cria uma cópia para ñ modificar o original
+    """
+    Gera texto a partir de um token inicial, usando o modelo treinado.
+    """
+    tokens_gerados = sequencia[:]  # Copia os tokens iniciais
+    for _ in range(num_palavras):
+        # Formatar entrada
+        entrada = pad_sequences([tokens_gerados], maxlen=max_length-1, padding="pre")
+
+        # Fazer previsão do próximo token
+        predicao = modelo.predict(entrada, verbose=0)
+        proximo_token = np.argmax(predicao)  # Escolher o token com maior probabilidade
+
+        # Adicionar à sequência
+        tokens_gerados.append(proximo_token)
+
+    return tokens_gerados  # Retorna os tokens gerados
+
+# Testar geração de texto
+token_inicial = [3, 47]  # "Olá, Ales..."
+tokens_gerados = gerar_texto(modelo, token_inicial, sp)
+tokens_gerados = [int(token) for token in tokens_gerados]
+
+# Converter tokens gerados para texto legível
+texto_gerado = sp.DecodeIds(tokens_gerados)
+
+print("Texto gerado:", texto_gerado)
