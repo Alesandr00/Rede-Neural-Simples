@@ -6,6 +6,8 @@ modelo = Sequential([
     Embedding(input_dim=50, output_dim=64),  # Mapeia tokens para vetores de 64 dimensões
     LSTM(units=128, return_sequences=False),  # Processa a sequência
     Dense(units=50, activation="softmax")  # Previsão do próximo token
+    # O units da camada dense, precisa ver quanto vale y print(y.shape) o segundo valor coloca aqui
+
 ])
 
 modelo.compile(
