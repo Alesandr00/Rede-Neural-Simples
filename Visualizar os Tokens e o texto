@@ -5,11 +5,7 @@ modelo = spm.SentencePieceProcessor()
 modelo.load("meu_modelo.model")
 
 # Texto de exemplo
-texto_exemplo = """Olá, Alesandro! Vamos aprender sobre tokenização com SentencePiece.
-Este método é utilizado por modelos avançados de IA, como BERT e GPT.
-Tokenização é um processo essencial para PLN. Podemos treinar modelos eficientes para lidar com textos em português.
-Machine learning é uma área fascinante e tem aplicações diversas, como chatbots, análise de sentimentos e muito mais.
-Com um bom tokenizador, podemos melhorar o desempenho de modelos de inteligência artificial."""
+texto_exemplo = """      """
 
 # Obter os tokens e seus IDs numéricos
 tokens = modelo.EncodeAsIds(texto_exemplo)
